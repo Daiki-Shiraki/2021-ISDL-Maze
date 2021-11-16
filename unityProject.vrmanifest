@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.isdl_lab_unity_ver1.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "C:\\Users\\daiki\\Documents\\Unity\\ISDL_LAB_UNITY_ver1\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "ISDL_LAB_UNITY_ver1 [Testing]"
+        }
+      }
+    }
+  ]
+}
