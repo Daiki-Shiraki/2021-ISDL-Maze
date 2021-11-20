@@ -13,7 +13,8 @@ namespace ViveSR
             public class EyeData2CSV : MonoBehaviour
             {
                 private float time;
-                private float timeOut = 0.5f;
+                private float timeOut = 0.1f;
+                private float blinkcount = 0;
 
                 GameObject SaveBlinkCsv,SaveRegularCsv;
                 SaveBlinkCsvScript SaveBlinkCsvScript;
@@ -84,8 +85,8 @@ namespace ViveSR
                         Debug.Log("Right Pupil" + RightPupil.x + ", " + RightPupil.y);
                     }
                     //------------------------------
-
-
+                    //瞳孔径を出力
+                    float pupilSize = eye.verbose_data.left.pupil_diameter_mm;
                     //②まぶたの開き具合------------（HMDを被ってなくても1が返ってくる？？謎）
                     //左のまぶたの開き具合を取得
                     if (SRanipal_Eye.GetEyeOpenness(EyeIndex.LEFT, out LeftBlink, eye))
@@ -95,7 +96,8 @@ namespace ViveSR
                             BlinkFrag = LeftBlink;
                             if (BlinkFrag==0)
                             {
-                                SaveBlinkCsvScript.SaveData("Blinked", Time.time.ToString());
+                                blinkcount++;
+                                SaveBlinkCsvScript.SaveData("Blinked", Time.time.ToString(),blinkcount.ToString());
                             }
                         }
                         //値が有効なら左のまぶたの開き具合を表示
@@ -144,7 +146,7 @@ namespace ViveSR
                     //------------------------------
                     if (time >=timeOut)
                     { 
-                        SaveRegularCsvScript.SaveData(Time.time.ToString(),LeftPupil.x.ToString(),LeftPupil.y.ToString(),RightPupil.x.ToString(),RightPupil.y.ToString(),LeftBlink.ToString(),RightBlink.ToString(),CombineFocus.point.x.ToString(), CombineFocus.point.y.ToString(), CombineFocus.point.z.ToString());
+                        SaveRegularCsvScript.SaveData(Time.time.ToString(),LeftPupil.x.ToString(),LeftPupil.y.ToString(),RightPupil.x.ToString(),RightPupil.y.ToString(),pupilSize.ToString(),LeftBlink.ToString(),RightBlink.ToString());
                         time = 0.0f;
                     }
                 }
