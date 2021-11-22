@@ -113,6 +113,14 @@ namespace Valve.VR
             }
         }
         
+        public virtual SteamVR_Action_Single walk_front
+        {
+            get
+            {
+                return SteamVR_Actions.default_walk_front;
+            }
+        }
+        
         public virtual SteamVR_Action_Vibration Haptic
         {
             get

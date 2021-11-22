@@ -12,13 +12,15 @@ namespace ViveSR
 
             public class EyeData2CSV : MonoBehaviour
             {
-                private float time;
-                private float timeOut = 0.1f;
+                private float time,shortTime;
+                private float timeOut = 1.0f;
+                private float timeshort = 0.1f;
                 private float blinkcount = 0;
 
-                GameObject SaveBlinkCsv,SaveRegularCsv;
+                GameObject SaveBlinkCsv,SaveRegularCsv,SaveOneSecond;
                 SaveBlinkCsvScript SaveBlinkCsvScript;
                 SaveRegularCsvScript SaveRegularCsvScript;
+                SaveOneSecondCsv SaveOneSecondCsv;
                 float BlinkFrag=1;
 
                 EyeData eye;
@@ -59,10 +61,13 @@ namespace ViveSR
                     SaveBlinkCsvScript = SaveBlinkCsv.GetComponent<SaveBlinkCsvScript>();
                     SaveRegularCsv = GameObject.Find("SaveRegularCsv");
                     SaveRegularCsvScript = SaveRegularCsv.GetComponent<SaveRegularCsvScript>();
+                    SaveOneSecond = GameObject.Find("SaveOneSecond");
+                    SaveOneSecondCsv = SaveOneSecond.GetComponent<SaveOneSecondCsv>();
                 }
                 void Update()
                 {
                     time += Time.deltaTime;
+                    shortTime += Time.deltaTime; 
 
                     if (SRanipal_Eye_API.GetEyeData(ref eye) == ViveSR.Error.WORK)
                     {
@@ -144,11 +149,18 @@ namespace ViveSR
                         Debug.Log("Combine Focus Point" + CombineFocus.point.x + ", " + CombineFocus.point.y + ", " + CombineFocus.point.z);
                     }
                     //------------------------------
-                    if (time >=timeOut)
+                    if (shortTime >=timeshort)
                     { 
                         SaveRegularCsvScript.SaveData(Time.time.ToString(),LeftPupil.x.ToString(),LeftPupil.y.ToString(),RightPupil.x.ToString(),RightPupil.y.ToString(),pupilSize.ToString(),LeftBlink.ToString(),RightBlink.ToString());
+                        shortTime = 0.0f;
+                    }
+                    if (time >= timeOut)
+                    {
+                        int i = (int)(Time.time);
+                        SaveOneSecondCsv.SaveData(i.ToString(), LeftPupil.x.ToString(), LeftPupil.y.ToString(), RightPupil.x.ToString(), RightPupil.y.ToString(), pupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString());
                         time = 0.0f;
                     }
+                
                 }
             }
         }
