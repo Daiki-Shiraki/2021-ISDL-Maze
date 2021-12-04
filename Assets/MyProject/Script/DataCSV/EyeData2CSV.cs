@@ -16,6 +16,10 @@ namespace ViveSR
                 private float timeOut = 1.0f;
                 private float timeshort = 0.1f;
                 private float blinkcount = 0;
+                private float blinktemp = 0;
+                private float blinktempl = 0;
+                private string blinked = "null";
+                private int n=1;
 
                 GameObject SaveBlinkCsv,SaveRegularCsv,SaveOneSecond;
                 SaveBlinkCsvScript SaveBlinkCsvScript;
@@ -91,7 +95,8 @@ namespace ViveSR
                     }
                     //------------------------------
                     //瞳孔径を出力
-                    float pupilSize = eye.verbose_data.left.pupil_diameter_mm;
+                    float LeftpupilSize = eye.verbose_data.left.pupil_diameter_mm;
+                    float RightpupilSize = eye.verbose_data.right.pupil_diameter_mm;
                     //②まぶたの開き具合------------（HMDを被ってなくても1が返ってくる？？謎）
                     //左のまぶたの開き具合を取得
                     if (SRanipal_Eye.GetEyeOpenness(EyeIndex.LEFT, out LeftBlink, eye))
@@ -101,8 +106,11 @@ namespace ViveSR
                             BlinkFrag = LeftBlink;
                             if (BlinkFrag==0)
                             {
+                                blinked = "blinked";
                                 blinkcount++;
-                                SaveBlinkCsvScript.SaveData("Blinked", Time.time.ToString(),blinkcount.ToString());
+                                blinktemp++;
+                                blinktempl++;
+                                
                             }
                         }
                         //値が有効なら左のまぶたの開き具合を表示
@@ -151,14 +159,23 @@ namespace ViveSR
                     //------------------------------
                     if (shortTime >=timeshort)
                     { 
-                        SaveRegularCsvScript.SaveData(Time.time.ToString(),LeftPupil.x.ToString(),LeftPupil.y.ToString(),RightPupil.x.ToString(),RightPupil.y.ToString(),pupilSize.ToString(),LeftBlink.ToString(),RightBlink.ToString());
+                        SaveRegularCsvScript.SaveData(Time.time.ToString(),LeftPupil.x.ToString(),LeftPupil.y.ToString(),RightPupil.x.ToString(),RightPupil.y.ToString(),LeftpupilSize.ToString(), RightpupilSize.ToString(), LeftBlink.ToString(),RightBlink.ToString(),blinked);
+                        SaveBlinkCsvScript.SaveData(Time.time.ToString(), blinkcount.ToString(), n.ToString(),blinktempl.ToString());
                         shortTime = 0.0f;
+                        blinked = "null";
+                        if (Time.time > n)
+                        {
+                            blinktempl = 0;
+                            n++;
+                        }
                     }
                     if (time >= timeOut)
                     {
                         int i = (int)(Time.time);
-                        SaveOneSecondCsv.SaveData(i.ToString(), LeftPupil.x.ToString(), LeftPupil.y.ToString(), RightPupil.x.ToString(), RightPupil.y.ToString(), pupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString());
+                        SaveOneSecondCsv.SaveData(i.ToString(), LeftPupil.x.ToString(), LeftPupil.y.ToString(), RightPupil.x.ToString(), RightPupil.y.ToString(), LeftpupilSize.ToString(), RightpupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString(),blinktemp.ToString());
                         time = 0.0f;
+                        blinktemp = 0;
+                        
                     }
                 
                 }

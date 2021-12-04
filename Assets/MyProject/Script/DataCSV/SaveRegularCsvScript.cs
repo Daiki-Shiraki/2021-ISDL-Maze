@@ -15,14 +15,14 @@ public class SaveRegularCsvScript : MonoBehaviour
         sw = new StreamWriter(@"SaveRegularData" + date + ".csv", true, Encoding.GetEncoding("Shift_JIS"));
         //string[] s1 = {"time","LeftPupil X", "LeftPupil Y", "RightPupil X", "RightPupil Y","LeftBlink","RightBlink","CombineFocusPoint X", "CombineFocusPoint Y" , "CombineFocusPoint Z" };
 
-        string[] s1 = { "time", "LeftPupil X", "LeftPupil Y", "RightPupil X", "RightPupil Y","PupilSize", "LeftBlink", "RightBlink"};
+        string[] s1 = { "time", "LeftPupil X", "LeftPupil Y", "RightPupil X", "RightPupil Y","LeftPupilSize", "RightPupilSize", "LeftBlink", "RightBlink","blinktiming"};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }
 
-    public void SaveData(string txt1, string txt2, string txt3, string txt4, string txt5, string txt6, string txt7, string txt8)
+    public void SaveData(string txt1, string txt2, string txt3, string txt4, string txt5, string txt6, string txt7, string txt8,string txt9,string txt10)
     {
-        string[] s1 = { txt1, txt2,txt3,txt4,txt5,txt6,txt7,txt8 };
+        string[] s1 = { txt1, txt2,txt3,txt4,txt5,txt6,txt7,txt8,txt9,txt10};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }
