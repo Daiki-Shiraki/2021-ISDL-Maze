@@ -105,7 +105,7 @@ namespace ViveSR
                     }
                     if (shortTime >= timeshort)
                     {
-                        SaveRegularCsvScript.SaveData(Time.time.ToString(), LeftPupil.x.ToString(), LeftPupil.y.ToString(), RightPupil.x.ToString(), RightPupil.y.ToString(), LeftpupilSize.ToString(), RightpupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString(), blinked);
+                        SaveRegularCsvScript.SaveData(Time.time.ToString(), LeftpupilSize.ToString(), RightpupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString(), blinked);
                         //SaveBlinkCsvScript.SaveData(Time.time.ToString(), blinkcount.ToString(), n.ToString(), blinktempl.ToString());
                         shortTime = 0.0f;
                         blinked = "null";

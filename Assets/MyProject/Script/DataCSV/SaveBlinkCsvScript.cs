@@ -17,14 +17,14 @@ public class SaveBlinkCsvScript : MonoBehaviour
         //ClockText = GetComponentInChildren<Text>();
         //ClockText.text = DateTime.Now.ToShortTimeString();
         sw = new StreamWriter(@"SaveBlinkData"+ date + ".csv", true, Encoding.GetEncoding("Shift_JIS"));
-        string[] s1 = { "Blink", "time","count","tempblink" };
+        string[] s1 = { "フレーム数","累計瞬き回数" };
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }
 
-    public void SaveData(string txt1, string txt2,string txt3,string txt4)
+    public void SaveData(string txt1, string txt3)
     {
-        string[] s1 = { txt1, txt2,txt3,txt4 };
+        string[] s1 = { txt1,txt3,};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }

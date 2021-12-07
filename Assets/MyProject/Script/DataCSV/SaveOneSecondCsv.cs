@@ -15,14 +15,14 @@ public class SaveOneSecondCsv : MonoBehaviour
         sw = new StreamWriter(@"SaveOneSecondCsvData" + date + ".csv", true, Encoding.GetEncoding("Shift_JIS"));
         //string[] s1 = {"time","LeftPupil X", "LeftPupil Y", "RightPupil X", "RightPupil Y","LeftBlink","RightBlink","CombineFocusPoint X", "CombineFocusPoint Y" , "CombineFocusPoint Z" };
 
-        string[] s1 = { "time", "LeftPupil X", "LeftPupil Y", "RightPupil X", "RightPupil Y", "LeftPupilSize", "RightPupilSize", "LeftBlink", "RightBlink","blink" };
+        string[] s1 = { "秒数", "左瞳孔径", "右瞳孔径", "左目の開き具合", "右目の開き具合", "1秒当たりの瞬き回数" };
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }
 
-    public void SaveData(string txt1, string txt2, string txt3, string txt4, string txt5, string txt6, string txt7, string txt8, string txt9,string txt10)
+    public void SaveData(string txt1, string txt2, string txt3, string txt4, string txt5, string txt6)
     {
-        string[] s1 = { txt1, txt2, txt3, txt4, txt5, txt6, txt7, txt8,txt9,txt10 };
+        string[] s1 = { txt1, txt2, txt3, txt4, txt5, txt6,};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }
