@@ -22,7 +22,7 @@ public class SaveOneSecondCsv : MonoBehaviour
 
     public void SaveData(string txt1, string txt2, string txt3, string txt4, string txt5, string txt6)
     {
-        string[] s1 = { txt1, txt2, txt3, txt4, txt5, txt6,};
+        string[] s1 = { txt1, txt2, txt3, txt4, txt5, txt6};
         string s2 = string.Join(",", s1);
         sw.WriteLine(s2);
     }

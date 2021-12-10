@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 using System;
 using System.Threading;
 using System.IO;
 using ViveSR.anipal.Eye;
+using Valve.VR;
 namespace Test120FPS{    
     public class Sample_GetDataThread : MonoBehaviour    {        
         public EyeData data = new EyeData();        
@@ -17,10 +19,15 @@ namespace Test120FPS{
         SaveRegularCsvScript SaveRegularCsvScript;
         SaveOneSecondCsv SaveOneSecondCsv;
 
+        //HMDの位置座標
+        private Vector3 HMDPosition;
+        
+
         //瞼の開き具合
         float LeftBlink;
         float RightBlink;
         float BlinkFrag = 1;
+        int BlinkUnder1=0;
         private string blinked = "non";
         //累計瞬き回数
         private float blinkcount = 0;
@@ -77,19 +84,24 @@ namespace Test120FPS{
                         {
                             if (BlinkFrag != LeftBlink)
                             {
+
                                 BlinkFrag = LeftBlink;
-                                if (BlinkFrag == 0)
+                                if (BlinkFrag < 0.1 && BlinkUnder1!=1)
                                 {
+                                    BlinkUnder1 = 1;
                                     blinked = "blinked";
                                     blinkcount++;
                                     blinktemp++;
                                     SaveBlinkCsvScript.SaveData(CurrFrameSequence.ToString(), blinkcount.ToString());
                                     Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                                 }
+                                if(BlinkFrag > 0.1)
+                                {
+                                    BlinkUnder1 = 0;
+                                }
                             }
                         }
                         SRanipal_Eye.GetEyeOpenness(EyeIndex.RIGHT, out RightBlink, data);
-
                         SaveRegularCsvScript.SaveData(CurrFrameSequence.ToString(), LeftpupilSize.ToString(), RightpupilSize.ToString(), LeftBlink.ToString(), RightBlink.ToString(), blinked);
                         blinked = "non";
                     }                
