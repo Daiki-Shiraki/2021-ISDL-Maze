@@ -20,7 +20,7 @@ namespace Test120FPS{
         SaveOneSecondCsv SaveOneSecondCsv;
 
         //HMDの位置座標
-        private Vector3 HMDPosition;
+//        private Vector3 HMDPosition;
         
 
         //瞼の開き具合
@@ -86,7 +86,7 @@ namespace Test120FPS{
                             {
 
                                 BlinkFrag = LeftBlink;
-                                if (BlinkFrag < 0.1 && BlinkUnder1!=1)
+                                if (BlinkFrag < 0.3 && BlinkUnder1!=1)
                                 {
                                     BlinkUnder1 = 1;
                                     blinked = "blinked";
@@ -95,7 +95,7 @@ namespace Test120FPS{
                                     SaveBlinkCsvScript.SaveData(CurrFrameSequence.ToString(), blinkcount.ToString());
                                     Debug.Log("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
                                 }
-                                if(BlinkFrag > 0.1)
+                                if(BlinkFrag > 0.3)
                                 {
                                     BlinkUnder1 = 0;
                                 }
